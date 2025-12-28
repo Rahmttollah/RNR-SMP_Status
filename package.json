@@ -1,0 +1,21 @@
+{
+  "name": "minecraft-web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@sfirew/minecraft-motd-parser": "^1.1.6",
+    "axios": "^1.13.2",
+    "cors": "^2.8.5",
+    "express": "^5.2.1",
+    "mc-server-util": "^1.0.0",
+    "minecraft-server-util": "^5.4.4"
+  }
+}
