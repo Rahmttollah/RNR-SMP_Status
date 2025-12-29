@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 
 /* ===== ENV SAFE CONFIG ===== */
-const HOST = process.env.MC_HOST || 'RNR-SMP.aternos.me';
+const HOST = process.env.MC_HOST || 'rnr-smp.online';
 const PORT_MC = Number(process.env.MC_PORT) || 29622;
 const WEB_PORT = process.env.PORT || 10303;
 
