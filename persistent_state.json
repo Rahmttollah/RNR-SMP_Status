@@ -1,0 +1,14 @@
+{
+  "lastOnlineAt": 1767624144866,
+  "lastOfflineAt": 1767624134817,
+  "lastCrashAt": 1767622469860,
+  "queue": {
+    "active": false,
+    "startedAt": null,
+    "expectedEndAt": null
+  },
+  "lastOfflineAlertTime": null,
+  "offlineAlertCount": 0,
+  "lastOfflineReason": "Manual stop",
+  "lastOnlineTime": 1767624144866
+}

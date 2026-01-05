@@ -1,0 +1,11 @@
+const express = require("express");
+const { createServer } = require("http");
+const { registerRoutes } = require("./routes");
+const app = express();
+app.use(express.json());
+(async () => {
+  const server = createServer(app);
+  await registerRoutes(app);
+  const port = process.env.PORT || 5000;
+  server.listen(port, "0.0.0.0", () => console.log(`Server running on port ${port}`));
+})();

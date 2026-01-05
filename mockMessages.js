@@ -1,0 +1,47 @@
+const QUEUE_MOCK_MESSAGES = [
+  "🚨 QUEUE MISS REPORT 🚨\nQueue প্রস্তুত ছিল,\nকিন্তু Admin প্রস্তুত ছিল না।",
+  "🟥 Queue Failure Detected\nকারণ: Admin response slow\nফলাফল: Queue শেষ",
+  "😬 Countdown শেষ… Server শুরু হয়নি।",
+  "📊 Queue Summary:\n✔️ Alert পাঠানো হয়েছে\n❌ Server start হয়নি",
+  "🛑 Queue timeout\nAdmin active ছিল… action inactive ছিল।",
+  "📉 Performance:\nQueue = Fast\nAdmin = Slow",
+  "🤖 Bot জাগ্রত ছিল,\nAdmin ঘুমন্ত ছিল।",
+  "⛔ Confirmation না পাওয়ায় Queue auto-close হয়েছে।",
+  "🧠 Queue smart,\nAdmin confused।",
+  "🚫 Queue window বন্ধ।\nNext time দ্রুত হোন 😄",
+
+  "😂 Queue বলেছিল ‘Start করো’, Admin বললো ‘একটু পরে’",
+  "☕ Queue countdown চলছিল, Admin চা-বিরিয়ানি mode এ",
+  "😴 Queue অপেক্ষা করলো, Admin ঘুমিয়ে পড়লো",
+  "🕰️ Queue on time, Admin lifetime late",
+  "🎭 নাটক: Queue ready | Admin AFK",
+  "📦 Queue এসেছে, Receiver পাওয়া যায়নি",
+  "⚡ Queue 5G স্পিডে, Admin 2G",
+  "🤡 Queue serious ছিল, Admin chill ছিল",
+  "💀 Queue expired, Admin still thinking",
+  "🚪 Queue দরজায়, Admin জানালায়",
+
+  "📢 Alert গেছে, Reply আসেনি",
+  "🟥 Queue Missed Successfully!\nAchievement unlocked 🎉",
+  "🤖 Bot চেষ্টা করছে,\nHuman error detected",
+  "🧍 Admin online ছিল,\nDecision offline ছিল",
+  "😬 Queue গেল… সুযোগও গেল",
+  "📉 Queue wasted due to slow response",
+  "🎮 Queue game-ready,\nAdmin AFK-ready",
+  "🛑 Queue auto-closed by system",
+  "⏰ Time over!\nAdmin reaction not found",
+  "🧠 Queue intelligent,\nAdmin overthinking",
+
+  "🚨 Human delay detected",
+  "📦 Queue delivered → Admin unavailable",
+  "😅 Queue patience শেষ",
+  "🕒 Queue গেল, ইতিহাস হয়ে গেল",
+  "⚠️ Queue missed, lesson learned (hopefully)",
+  "🟥 Red alert ignored successfully",
+  "🤔 Admin ভাবছিল, Queue চলে গেল",
+  "📉 Response time too high",
+  "🚫 Queue window closed permanently",
+  "😂 Next time alarm সেট করবেন"
+];
+
+module.exports = { QUEUE_MOCK_MESSAGES };
