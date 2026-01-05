@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RNR-SMP | Minecraft Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --mc-green: #55FF55;
+            --mc-red: #FF5555;
+            --mc-gold: #FFAA00;
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            background-image: url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            image-rendering: pixelated;
+        }
+
+        .mc-font {
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        .mc-card {
+            background: #4a4a4a;
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px #2a2a2a, inset 4px 4px 0px #8b8b8b, 8px 8px 0px rgba(0,0,0,0.5);
+            padding: 20px;
+            position: relative;
+        }
+
+        .mc-button {
+            background: #8b8b8b;
+            border: 4px solid #000;
+            box-shadow: inset -4px -4px 0px #4a4a4a, inset 4px 4px 0px #bdbdbd;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.1s;
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+        }
+
+        .mc-button:active {
+            box-shadow: inset 4px 4px 0px #4a4a4a, inset -4px -4px 0px #bdbdbd;
+            transform: translate(2px, 2px);
+        }
+
+        .status-indicator {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #000;
+            display: inline-block;
+        }
+
+        .bg-online { background-color: var(--mc-green); box-shadow: 0 0 15px var(--mc-green); }
+        .bg-offline { background-color: var(--mc-red); box-shadow: 0 0 15px var(--mc-red); }
+        .bg-queue { background-color: var(--mc-gold); box-shadow: 0 0 15px var(--mc-gold); }
+
+        .progress-container {
+            height: 24px;
+            background: #000;
+            border: 3px solid #4a4a4a;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--mc-green);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .pixel-art {
+            image-rendering: pixelated;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .mc-color-0 { color: #000000; } .mc-color-1 { color: #0000AA; } .mc-color-2 { color: #00AA00; } .mc-color-3 { color: #00AAAA; }
+        .mc-color-4 { color: #AA0000; } .mc-color-5 { color: #AA00AA; } .mc-color-6 { color: #FFAA00; } .mc-color-7 { color: #AAAAAA; }
+        .mc-color-8 { color: #555555; } .mc-color-9 { color: #5555FF; } .mc-color-a { color: #55FF55; } .mc-color-b { color: #55FFFF; }
+        .mc-color-c { color: #FF5555; } .mc-color-d { color: #FF55FF; } .mc-color-e { color: #FFFF55; } .mc-color-f { color: #FFFFFF; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+    <div class="max-w-6xl mx-auto space-y-8">
+        <!-- Header -->
+        <header class="mc-card flex flex-col md:flex-row items-center justify-between gap-6 animate-in fade-in slide-in-from-top-4 duration-500">
+            <div class="flex items-center gap-6">
+                <img src="https://api.mcsrvstat.us/icon/ncr-1.candynodes.xyz:25571" class="w-20 h-20 border-4 border-black shadow-lg animate-float pixel-art">
+                <div>
+                    <h1 class="mc-font text-2xl md:text-4xl tracking-tighter mb-2">RNR-SMP</h1>
+                    <div class="flex items-center gap-3">
+                        <div id="status-dot" class="status-indicator bg-offline"></div>
+                        <span id="status-text" class="mc-font text-xs uppercase opacity-70">Detecting...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-4">
+                <a href="https://discord.gg/Tabgf3rtT" target="_blank" class="mc-button mc-font text-[10px]">DISCORD</a>
+                <button onclick="copyIP()" class="mc-button mc-font text-[10px]">COPY IP</button>
+            </div>
+        </header>
+
+        <!-- Main Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Server Info -->
+            <div class="mc-card space-y-6 hover:scale-[1.02] transition-transform">
+                <h3 class="mc-font text-sm border-b-4 border-black pb-2">SERVER INFO</h3>
+                <div class="space-y-4 text-sm">
+                    <div class="flex justify-between">
+                        <span class="opacity-60">IP:</span>
+                        <span class="font-bold">RNR-SMP.aternos.me</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="opacity-60">PORT:</span>
+                        <span class="font-bold">29622</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="opacity-60">PING:</span>
+                        <span id="latency" class="font-bold text-green-400">0ms</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Players -->
+            <div class="mc-card space-y-6 hover:scale-[1.02] transition-transform">
+                <h3 class="mc-font text-sm border-b-4 border-black pb-2">PLAYERS</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-end">
+                        <span id="player-count" class="mc-font text-xl">0/0</span>
+                        <span class="text-[10px] opacity-60 uppercase">Active</span>
+                    </div>
+                    <div class="progress-container">
+                        <div id="player-bar" class="progress-bar" style="width: 0%"></div>
+                    </div>
+                    <div id="player-list" class="flex flex-wrap gap-3 pt-2">
+                        <!-- Players -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOTD -->
+            <div class="mc-card space-y-6 md:col-span-2 lg:col-span-1 hover:scale-[1.02] transition-transform">
+                <h3 class="mc-font text-sm border-b-4 border-black pb-2">BROADCAST</h3>
+                <div id="motd" class="bg-black p-4 min-h-[100px] border-4 border-black text-center flex items-center justify-center leading-relaxed">
+                    Connecting to nodes...
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center pt-8">
+            <p class="mc-font text-[8px] opacity-30">© 2025 RNR-SMP INFRASTRUCTURE | POWERED BY REPLIT</p>
+        </footer>
+    </div>
+
+    <script>
+        const parseMOTD = (text) => {
+            if (!text) return "No Signal...";
+            const parts = text.split(/§([0-9a-fklmnor])/g);
+            let result = '';
+            let currentColor = 'f';
+            for (let i = 0; i < parts.length; i++) {
+                if (i % 2 === 1) currentColor = parts[i];
+                else result += `<span class="mc-color-${currentColor}">${parts[i]}</span>`;
+            }
+            return result;
+        };
+
+        async function update() {
+            try {
+                const res = await fetch('/api/status');
+                const data = await res.json();
+                
+                // Update IP and Port dynamically from server data
+                const javaIpSpan = document.querySelector('.font-bold:nth-child(2)'); // Finding by structure if ID not present
+                const portSpan = document.querySelector('.font-bold:nth-child(2)'); // This might be risky, let's check content
+
+                // Better way: use IDs or just replace the whole section
+                const connectionSection = document.querySelector('.mc-card div.space-y-4.text-sm');
+                if (connectionSection) {
+                    connectionSection.innerHTML = `
+                        <div class="flex justify-between">
+                            <span class="opacity-60">JAVA IP:</span>
+                            <span class="font-bold">${data.host}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="opacity-60">BEDROCK IP:</span>
+                            <span class="font-bold">${data.host}:${data.port}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="opacity-60">PING:</span>
+                            <span id="latency" class="font-bold text-green-400">${data.latency ? data.latency + 'ms' : 'N/A'}</span>
+                        </div>
+                    `;
+                }
+                
+                // Update Icon URL
+                const iconImg = document.querySelector('header img');
+                if (iconImg) {
+                    const iconUrl = "https://i.supaimg.com/04802807-5d29-4223-9632-bcbc23a3c841.png";
+                    if (iconImg.src !== iconUrl) {
+                        iconImg.src = iconUrl;
+                    }
+                }
+
+                // Status Update
+                const dot = document.getElementById('status-dot');
+                const text = document.getElementById('status-text');
+                dot.className = `status-indicator bg-${data.status}`;
+                text.innerText = data.status === 'queue' ? 'IN QUEUE' : data.status.toUpperCase();
+
+                // Stats
+                document.getElementById('latency').innerText = data.latency ? `${data.latency}ms` : 'N/A';
+                document.getElementById('player-count').innerText = `${data.players.online}/${data.players.max}`;
+                
+                const percent = (data.players.online / data.players.max) * 100 || 0;
+                document.getElementById('player-bar').style.width = `${percent}%`;
+
+                // MOTD
+                document.getElementById('motd').innerHTML = parseMOTD(data.motd.raw);
+
+                // Players
+                const list = document.getElementById('player-list');
+                list.innerHTML = '';
+                if (data.players.list && data.players.list.length > 0) {
+                    data.players.list.forEach(p => {
+                        list.innerHTML += `
+                            <div class="group relative">
+                                <img src="https://mc-heads.net/avatar/${p.name}/32" title="${p.name}" class="w-8 h-8 border-2 border-black pixel-art hover:scale-125 transition-transform cursor-help">
+                            </div>
+                        `;
+                    });
+                } else if (data.status === 'online') {
+                    list.innerHTML = '<span class="text-[10px] opacity-30 italic">Lone wolf mode...</span>';
+                }
+
+            } catch (e) { console.error(e); }
+        }
+
+        function copyIP() {
+            fetch('/api/status').then(res => res.json()).then(data => {
+                navigator.clipboard.writeText(data.host);
+                alert("IP Copied!");
+            });
+        }
+
+        setInterval(update, 5000);
+        update();
+    </script>
+</body>
+</html>
